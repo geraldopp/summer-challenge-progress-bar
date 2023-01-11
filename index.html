@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Prograssion Bars Game Tracker</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body style="background-color: #C8EDFF; font-family: sans-serif;">
+	<div style="height: 60px;"></div>
+	<main style="width: 100%; max-width: 1100px; margin: 0 auto;">
+		<div style="width: 150px; border: 1px dashed #cccccc;">
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="0">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="16">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="22">
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div style="width: 350px; border: 1px dashed #cccccc;">
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="4">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="8">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="22">
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div style="width: 450px; border: 1px dashed #cccccc;">
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="16">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="22">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="challenge-tracker-bar">
+				<div class="container">
+					<div class="progress" data-games-played="7">
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+	</main>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		jQuery(document).ready(function(){
+
+			var currentContestWinLimit = 22; // <-------- PLEASE CHANGE THIS VARIABLE ACCORDINGLY
+
+			jQuery('.challenge-tracker-bar .container .progress').each(function(){
+				var gamesPlayed = jQuery(this).attr('data-games-played');
+				var trackerPercentValue = (gamesPlayed * 100)/currentContestWinLimit;
+				trackerPercentValue = parseInt(Math.round(trackerPercentValue));
+
+				jQuery(this).parent().prepend('<p></p>');
+				if(trackerPercentValue >= 100){
+					jQuery(this).closest('.challenge-tracker-bar').prepend('<div class="challenge-badge"></div>');
+					jQuery(this).css({
+						'transform': 'translateX(100%)',
+						'background-color': '#C5FA4F'
+					});
+					setTimeout(() => {
+						jQuery(this).closest('.challenge-tracker-bar').children('.challenge-badge').css({
+							'transform': 'scale(1)',
+							'top': '-20px'
+						});
+					}, 800);
+					jQuery(this).siblings('p').text('Challenge Complete!');
+					jQuery(this).addClass('completed');
+				}else{
+					jQuery(this).css('transform', 'translateX('+trackerPercentValue+'%)');
+					jQuery(this).siblings('p').text(gamesPlayed + '/' + currentContestWinLimit + ' Games');
+				}
+			});
+		});
+	</script>
+</body>
+</html>
